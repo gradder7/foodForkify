@@ -24,15 +24,13 @@ const controllRecipe = async () => {
     }
     console.log(id);
     recipeView.renderSpiner();
-    //1
-    //loading the recipe
+    //1>loading the recipe
     //as loadrecipe is a async function it will retun a promise
     //so do async
     await model.loadRecipe(id);
     const { recipe } = model.state;
 
-    //2
-    // rendering the recipe
+    //2>rendering the recipe
     // pass data to method rather than  to the object
     recipeView.render(model.state.recipe);
 
