@@ -1,5 +1,5 @@
 import icons from '../../img/icons.svg';
-import {Fraction} from 'fractional';
+import { Fraction } from 'fractional';
 // console.log(fractional);
 
 export class RecipeView {
@@ -26,6 +26,13 @@ export class RecipeView {
     this.#clear();
     this.#parentElement.insertAdjacentHTML('afterbegin', htmlInner);
   };
+
+  // publisher and subscriber
+  addHandlerRender(handler) {
+    ['hashchange', 'load'].forEach(event =>
+      window.addEventListener(event, handler)
+    );
+  }
   #generateMarkUp() {
     return `
         <figure class="recipe__fig">
@@ -83,9 +90,7 @@ export class RecipeView {
         <div class="recipe__ingredients">
           <h2 class="heading--2">Recipe ingredients</h2>
           <ul class="recipe__ingredient-list">
-          ${this.#data.ingredients
-            .map(this.#generateHtmlIngridiants)
-            .join('')}
+          ${this.#data.ingredients.map(this.#generateHtmlIngridiants).join('')}
           </ul>
         </div>
 
@@ -110,8 +115,8 @@ export class RecipeView {
           </a>
         </div>`;
   }
-  #generateHtmlIngridiants(val){
-              return `      
+  #generateHtmlIngridiants(val) {
+    return `      
             <li class="recipe__ingredient">
                 <svg class="recipe__icon">
                   <use href="${icons}#icon-check"></use>

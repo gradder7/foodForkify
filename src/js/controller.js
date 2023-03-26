@@ -37,7 +37,8 @@ const controllRecipe = async () => {
 
     // recipeContainer.innerHTML = htmlInner;
   } catch (err) {
-    alert(err);
+    console.log(err);
+    
   }
 };
 
@@ -45,6 +46,13 @@ const controllRecipe = async () => {
 // window.addEventListener('hashchange', showRecipe);
 // window.addEventListener('load', showRecipe);
 //we can also write the same code as
-['hashchange', 'load'].forEach(event =>
-  window.addEventListener(event, controllRecipe)
-);
+// ['hashchange', 'load'].forEach(event =>
+//   window.addEventListener(event, controllRecipe)
+// );
+
+// publisher and subcrfiber patern here i will pass the function of controller as args to the view for event handeling
+// as soon as the program start the init will run and will run the  addHandlerRender
+const init=()=>{
+  recipeView.addHandlerRender(controllRecipe);
+}
+init();
