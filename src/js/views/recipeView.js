@@ -64,6 +64,7 @@ export class RecipeView {
     this.#clear();
     this.#parentElement.insertAdjacentHTML('afterbegin', htmlInner);
   }
+  
   #generateMarkUp() {
     return `
         <figure class="recipe__fig">

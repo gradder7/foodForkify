@@ -4,18 +4,10 @@ import 'core-js/stable';
 // polllyfill for async await
 import 'regenerator-runtime/runtime';
 import { async } from 'regenerator-runtime';
+import searchView from './views/searchView';
 
-const timeout = function (s) {
-  return new Promise(function (_, reject) {
-    setTimeout(function () {
-      reject(new Error(`Request took too long! Timeout after ${s} second`));
-    }, s * 1000);
-  });
-};
 // https://forkify-api.herokuapp.com/v2
-///////////////////////////////////////
-// spinner
-
+// controll recipe View
 const controllRecipe = async () => {
   try {
     // to get the id and fetch the data acc. to it
@@ -23,7 +15,7 @@ const controllRecipe = async () => {
     if (!id) {
       return;
     }
-    console.log(id);
+    // console.log(id);
     recipeView.renderSpiner();
     //1>loading the recipe
     //as loadrecipe is a async function it will retun a promise
@@ -40,6 +32,22 @@ const controllRecipe = async () => {
     recipeView.renderError();
   }
 };
+// controll search
+// it does not retun anything
+//it just manipulate the state
+const controllSearch = async () => {
+  try {
+    //1> get the search query
+    const query = searchView.getQuery();
+    if (!query) return;
+    //2> load search results
+    await model.loadSearchResults(query);
+    //3> Render results
+    console.log(model.state.search.results);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // if we refresh the data will not show beacuse we addevent in hash change and the hash is not change in refresh solution is use load event
 // window.addEventListener('hashchange', showRecipe);
@@ -49,9 +57,10 @@ const controllRecipe = async () => {
 //   window.addEventListener(event, controllRecipe)
 // );
 
-// publisher and subcrfiber patern here i will pass the function of controller as args to the view for event handeling
+// publisher and subsciber pattern here i will pass the function of controller as args to the view for event handeling
 // as soon as the program start the init will run and will run the  addHandlerRender
 const init = () => {
   recipeView.addHandlerRender(controllRecipe);
+  searchView.addHandlerSearch(controllSearch);
 };
 init();
