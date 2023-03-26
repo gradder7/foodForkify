@@ -11,9 +11,9 @@ export const state = {
 export const loadRecipe = async function (id) {
   try {
     // it will return the promise
-   const data= await getJSON(`${API_URL}/${id}`);
-   console.log(data);
-   
+    const data = await getJSON(`${API_URL}/${id}`);
+    console.log(data);
+
     //destructure
     const { recipe } = data.data;
 
@@ -32,5 +32,15 @@ export const loadRecipe = async function (id) {
   } catch (err) {
     // temporary error handeling
     console.log(`${err} =>model error `);
+    throw err;
   }
 };
+
+//search func will export to controller and call by controller
+export const loadSearchResultes=async ()=>{
+  try {
+    
+  } catch (error) {
+    throw err;
+  }
+}

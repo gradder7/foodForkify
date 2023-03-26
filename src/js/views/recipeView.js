@@ -6,6 +6,8 @@ export class RecipeView {
   // # private methods babels
   #parentElement = document.querySelector('.recipe');
   #data;
+  #errorMessage = 'We could not find the recipe.Please try another one!';
+  #sucessMessage = 'Sucessfull!';
   render(data) {
     this.#data = data;
     const htmlInner = this.#generateMarkUp();
@@ -17,6 +19,7 @@ export class RecipeView {
   #clear() {
     this.#parentElement.innerHTML = '';
   }
+  // spinner
   renderSpiner = () => {
     const htmlInner = `<div class="spinner">
           <svg>
@@ -32,6 +35,34 @@ export class RecipeView {
     ['hashchange', 'load'].forEach(event =>
       window.addEventListener(event, handler)
     );
+  }
+
+  // display error message
+  // setting the msg to the default one
+  renderError(message = this.#errorMessage) {
+    const htmlInner = `<div class="error">
+            <div>
+              <svg>
+                <use href="${icons}#icon-alert-triangle"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+          </div>`;
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', htmlInner);
+  }
+  // sucess messages
+  renderSucessMessage(message = this.#sucessMessage) {
+    const htmlInner = `<div class="message">
+            <div>
+              <svg>
+                <use href="${icons}#icon-smile"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+          </div>`;
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', htmlInner);
   }
   #generateMarkUp() {
     return `
