@@ -3,6 +3,8 @@ import recipeView from './views/recipeView';
 import 'core-js/stable';
 // polllyfill for async await
 import 'regenerator-runtime/runtime';
+import { async } from 'regenerator-runtime';
+
 const timeout = function (s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {
@@ -10,7 +12,6 @@ const timeout = function (s) {
     }, s * 1000);
   });
 };
-
 // https://forkify-api.herokuapp.com/v2
 ///////////////////////////////////////
 // spinner
