@@ -2,14 +2,17 @@ import icons from '../../img/icons.svg';
 // parent of all classes
 export default class View {
   _data;
+  
   render(data) {
     if(!data  || (Array.isArray(data) && data.length===0)) return this.renderError();
     this._data = data;
+    
     const htmlInner = this._generateMarkUp();
     // clear the recipe container
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', htmlInner);
   }
+  
   // clear inner html
   _clear() {
     this._parentElement.innerHTML = '';

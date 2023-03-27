@@ -46,7 +46,6 @@ const controllSearch = async () => {
   try {
     resultsView.renderSpiner();
     // console.log(resultsView);
-
     //1> get the search query
     const query = searchView.getQuery();
     if (!query) return;
@@ -72,6 +71,13 @@ const controllPagination = goToPage => {
   paginationView.render(model.state.search);
 };
 
+controlServings = function (newServings) {
+  //update the recipe serving in thr state
+  model.updateServings(newServings);
+  //update the recipe view
+  recipeView.render(model.state.recipe);
+};
+
 // if we refresh the data will not show beacuse we addevent in hash change and the hash is not change in refresh solution is use load event
 // window.addEventListener('hashchange', showRecipe);
 // window.addEventListener('load', showRecipe);
@@ -84,6 +90,7 @@ const controllPagination = goToPage => {
 // as soon as the program start the init will run and will run the  addHandlerRender
 const init = () => {
   recipeView.addHandlerRender(controllRecipe);
+  recipeView.addHandlerUpdateServing(controlServings);
   searchView.addHandlerSearch(controllSearch);
   paginationView.addHandlerClick(controllPagination);
 };

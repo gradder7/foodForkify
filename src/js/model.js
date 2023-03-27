@@ -9,7 +9,7 @@ export const state = {
     query: '',
     results: [],
     resultsPerPage: RESULTS_PER_PAGE,
-    page:1,
+    page: 1,
   },
 };
 
@@ -65,10 +65,18 @@ export const loadSearchResults = async query => {
 
 // pagination
 // resultsPerPage it is hard coded in config file
-export const getSearchResultsPage = (page=state.search.page) => {
-  state.search.page=page;
+export const getSearchResultsPage = (page = state.search.page) => {
+  state.search.page = page;
   const start = (page - 1) * state.search.resultsPerPage; //0;
   const end = page * state.search.resultsPerPage; //9;
   // it will retun the data
   return state.search.results.slice(start, end);
+};
+
+export const updateServings = newServing => {
+  state.recipe.ingredients.forEach(ing => {
+    ing.quantity = (ing.quantity * newServing) / state.recipe.servings;
+    //newQt=oldQt*newServings/oldServing// 2*8/4=4
+  });
+  state.recipe.servings = newServing;
 };
