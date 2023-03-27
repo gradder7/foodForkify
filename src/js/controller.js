@@ -5,6 +5,12 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import { async } from 'regenerator-runtime';
 import searchView from './views/searchView';
+import resultsView from './views/resultsView';
+
+// from parcel
+if (module.hot) {
+  module.hot.accept();
+}
 
 // https://forkify-api.herokuapp.com/v2
 // controll recipe View
@@ -37,13 +43,17 @@ const controllRecipe = async () => {
 //it just manipulate the state
 const controllSearch = async () => {
   try {
+    resultsView.renderSpiner();
+    // console.log(resultsView);
+
     //1> get the search query
     const query = searchView.getQuery();
     if (!query) return;
     //2> load search results
     await model.loadSearchResults(query);
     //3> Render results
-    console.log(model.state.search.results);
+    // console.log(model.state.search.results);
+    resultsView.render(model.state.search.results);
   } catch (error) {
     console.log(error);
   }

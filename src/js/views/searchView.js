@@ -1,22 +1,22 @@
 class searchView {
-  #parentElement = document.querySelector('.search');
+  _parentElement = document.querySelector('.search');
   getQuery() {
     // 1> get teh query ans store
-    const query = this.#parentElement.querySelector('.search__field').value;
+    const query = this._parentElement.querySelector('.search__field').value;
     //clear the input field
-    this.#clearInputField();
+    this._clearInputField();
     return query;
   }
   //  publisher
   addHandlerSearch(handler) {
-    this.#parentElement.addEventListener('submit', e => {
+    this._parentElement.addEventListener('submit', e => {
       e.preventDefault;
       handler();
     });
   }
 
-  #clearInputField() {
-    this.#parentElement.querySelector('.search__field').value = '';
+  _clearInputField() {
+    this._parentElement.querySelector('.search__field').value = '';
   }
 }
 export default new searchView();
