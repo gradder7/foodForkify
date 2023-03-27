@@ -1,5 +1,5 @@
 import { async } from 'regenerator-runtime';
-import { API_URL } from './config';
+import { API_URL, RESULTS_PER_PAGE } from './config';
 import { getJSON } from './helpers';
 
 // for hadelling all the data
@@ -8,6 +8,8 @@ export const state = {
   search: {
     query: '',
     results: [],
+    resultsPerPage: RESULTS_PER_PAGE,
+    page:1,
   },
 };
 
@@ -59,4 +61,14 @@ export const loadSearchResults = async query => {
   } catch (error) {
     throw error;
   }
+};
+
+// pagination
+// resultsPerPage it is hard coded in config file
+export const getSearchResultsPage = (page=state.search.page) => {
+  state.search.page=page;
+  const start = (page - 1) * state.search.resultsPerPage; //0;
+  const end = page * state.search.resultsPerPage; //9;
+  // it will retun the data
+  return state.search.results.slice(start, end);
 };

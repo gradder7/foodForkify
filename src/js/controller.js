@@ -8,9 +8,9 @@ import searchView from './views/searchView';
 import resultsView from './views/resultsView';
 
 // from parcel
-if (module.hot) {
-  module.hot.accept();
-}
+// if (module.hot) {
+//   module.hot.accept();
+// }
 
 // https://forkify-api.herokuapp.com/v2
 // controll recipe View
@@ -53,7 +53,7 @@ const controllSearch = async () => {
     await model.loadSearchResults(query);
     //3> Render results
     // console.log(model.state.search.results);
-    resultsView.render(model.state.search.results);
+    resultsView.render(model.getSearchResultsPage(2));
   } catch (error) {
     console.log(error);
   }
