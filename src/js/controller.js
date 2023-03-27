@@ -6,6 +6,7 @@ import 'regenerator-runtime/runtime';
 import { async } from 'regenerator-runtime';
 import searchView from './views/searchView';
 import resultsView from './views/resultsView';
+import paginationView, { PaginationView } from './views/paginationView';
 
 // from parcel
 // if (module.hot) {
@@ -53,10 +54,22 @@ const controllSearch = async () => {
     await model.loadSearchResults(query);
     //3> Render results
     // console.log(model.state.search.results);
-    resultsView.render(model.getSearchResultsPage(2));
+    resultsView.render(model.getSearchResultsPage(1));
+    //4> render initial pagination buttons
+    paginationView.render(model.state.search);
   } catch (error) {
     console.log(error);
   }
+};
+
+const controllPagination = goToPage => {
+  console.log(goToPage);
+  //1> Render new results
+  //render will clear every thing and than render new markup
+  resultsView.render(model.getSearchResultsPage(goToPage));
+
+  //4> render new pagination buttons
+  paginationView.render(model.state.search);
 };
 
 // if we refresh the data will not show beacuse we addevent in hash change and the hash is not change in refresh solution is use load event
@@ -72,5 +85,6 @@ const controllSearch = async () => {
 const init = () => {
   recipeView.addHandlerRender(controllRecipe);
   searchView.addHandlerSearch(controllSearch);
+  paginationView.addHandlerClick(controllPagination);
 };
 init();
